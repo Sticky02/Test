@@ -56,15 +56,15 @@ class Function:
     
 
 
-def main():
+def DBrun():
     DB = Function()
     while True:
-        print("""Finance Calculator Menu\n
+        print("""What whould you like to do?
               1. Add a new entry
               2. Update an existing entry
               3. Delete an existing entry
               4. Display all entries
-              0. Exit
+              0. Return
               """)
         
         choice = input("Enter your choice: ")
@@ -91,10 +91,10 @@ def main():
             DB.display()
 
         elif choice == "0":
-            print("Exiting....")
+            print("Returning....")
             break
         else:
             print("Invalid input. Enter choice from 1-4. ")
         
 if __name__=="__main__":
-    main()
+    DBrun()
