@@ -38,17 +38,25 @@ class Function:
     def delete_entry(self, date):
         self.col.delete_one({"date":date})
 
-
+    def display(self):
+        count = self.col.count_documents({})
+        print(f"Total number of entries = {count}")
+        for i in self.col.find():
+            print(f"Date: {i['date']}, Amount: {i['amount']}, Category: {i['category']}, Description: {i['description']}")
+    
+            
 def main():
     while True:
         print("""Finance Calculator Menu
               1. Add a new entry
               2. Update an existing entry
               3. Delete an existing entry
-              4. Exit
+              4. Display all entries
+              0. Exit
               """)
         DB = Function()
         choice = input("Enter your choice: ")
+
         if choice == "1":
             date = input("Enter the date: ")
             amount = get_amt()
@@ -56,19 +64,27 @@ def main():
             description = get_description()
             DB.add(date, amount, category, description)
             print("Entry added successfully")
+
         elif choice == "2":
             date = input("Enter the date of the entry you want to update: ")
             DB.update_entry(date)
             print("Entry updated successfully")
+
         elif choice == "3":
             date = input("Enter the date of the entry you want to delete: ")
             DB.delete_entry(date)
             print("Entry deleted successfully")
+
         elif choice == "4":
+            DB.display()
+
+        elif choice == "0":
             print("Exiting....")
             break
         else:
             print("Invalid input. Enter choice from 1-4. ")
+
+
         
 if __name__=="__main__":
     main()
